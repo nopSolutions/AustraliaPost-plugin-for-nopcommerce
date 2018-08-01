@@ -42,6 +42,7 @@ namespace Nop.Plugin.Shipping.AustraliaPost
         #region Fields
 
         private readonly ICurrencyService _currencyService;
+        private readonly ILocalizationService _localizationService;
         private readonly IMeasureService _measureService;
         private readonly IShippingService _shippingService;
         private readonly ISettingService _settingService;
@@ -51,13 +52,15 @@ namespace Nop.Plugin.Shipping.AustraliaPost
         #endregion
 
         #region Ctor
-        public AustraliaPostComputationMethod(ICurrencyService currencyService, 
+        public AustraliaPostComputationMethod(ICurrencyService currencyService,
+            ILocalizationService localizationService,
             IMeasureService measureService,
             IShippingService shippingService, 
             ISettingService settingService, 
             IWebHelper webHelper, AustraliaPostSettings australiaPostSettings)
         {
             this._currencyService = currencyService;
+            this._localizationService = localizationService;
             this._measureService = measureService;
             this._shippingService = shippingService;
             this._settingService = settingService;
@@ -341,10 +344,10 @@ namespace Nop.Plugin.Shipping.AustraliaPost
             _settingService.SaveSetting(new AustraliaPostSettings());
 
             //locales
-            this.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey", "Australia Post API Key");
-            this.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey.Hint", "Specify Australia Post API Key.");
-            this.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge", "Additional handling charge");
-            this.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge.Hint", "Enter additional handling fee to charge your customers.");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey", "Australia Post API Key");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey.Hint", "Specify Australia Post API Key.");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge", "Additional handling charge");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge.Hint", "Enter additional handling fee to charge your customers.");
 
             base.Install();
         }
@@ -358,10 +361,10 @@ namespace Nop.Plugin.Shipping.AustraliaPost
             _settingService.DeleteSetting<AustraliaPostSettings>();
 
             //locales
-            this.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey");
-            this.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey.Hint");
-            this.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge");
-            this.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge.Hint");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.ApiKey.Hint");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.AustraliaPost.Fields.AdditionalHandlingCharge.Hint");
 
             base.Uninstall();
         }
